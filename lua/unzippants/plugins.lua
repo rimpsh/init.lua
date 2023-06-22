@@ -56,6 +56,8 @@ require('packer').startup(function()
         }
     }
 
+    use 'jose-elias-alvarez/null-ls.nvim'
+
     -- telescope
     use {
         'nvim-telescope/telescope.nvim',

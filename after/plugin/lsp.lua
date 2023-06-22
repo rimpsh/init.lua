@@ -9,7 +9,7 @@ lsp.ensure_installed({
     'zls',
     'gopls',
     'ansiblels',
-    'bufls',
+    'volar',
 })
 
 lsp.configure('lua_ls', {
@@ -67,6 +67,7 @@ lsp.format_on_save({
         ['gopls'] = { 'go' },
         ['lua_ls'] = { 'lua' },
         ['rust_analyzer'] = { 'rust' },
+        ['null-ls'] = { 'javascript', 'typescript' },
     }
 })
 
