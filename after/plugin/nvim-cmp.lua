@@ -1,8 +1,9 @@
 local cmp = require 'cmp'
 
 local has_words_before = function()
+    if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+    return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
 end
 
 local kind_icons = {
@@ -58,8 +59,9 @@ cmp.setup({
                 buffer = "[Buffer]",
                 nvim_lsp = "[LSP]",
                 nvim_lua = "[Lua]",
-                luasnip = "LuaSnip",
+                luasnip = "[LuaSnip]",
                 path = "[Path]",
+                copilot = "[Copilot]",
             })[entry.source.name]
             return vim_item
         end,
@@ -68,30 +70,20 @@ cmp.setup({
         ['<C-j>'] = cmp.mapping.scroll_docs(-4),
         ['<C-k>'] = cmp.mapping.scroll_docs(4),
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
-        ['<Tab>'] = function(fallback)
-            if not cmp.select_next_item() then
-                if vim.bo.buftype ~= 'prompt' and has_words_before() then
-                    cmp.complete()
-                else
-                    fallback()
-                end
+        ["<Tab>"] = vim.schedule_wrap(function(fallback)
+            if cmp.visible() and has_words_before() then
+                cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+            else
+                fallback()
             end
-        end,
-        ['<S-Tab>'] = function(fallback)
-            if not cmp.select_prev_item() then
-                if vim.bo.buftype ~= 'prompt' and has_words_before() then
-                    cmp.complete()
-                else
-                    fallback()
-                end
-            end
-        end,
+        end),
     },
     sources = {
-        { name = 'nvim_lsp', priortiy_weight = 1 },
-        { name = 'luasnip',  priority_weight = 2 },
-        { name = 'buffer',   priority_weight = 3 },
-        { name = 'path',     priority_weight = 4 },
+        { name = "copilot",  group_index = 2 },
+        { name = 'nvim_lsp', group_index = 2 },
+        { name = 'luasnip',  group_index = 2 },
+        { name = 'buffer',   group_index = 2 },
+        { name = 'path',     group_index = 2 },
     },
     confirm_opts = {
         behavior = cmp.ConfirmBehavior.Replace,

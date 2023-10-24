@@ -78,6 +78,3 @@ map('n', '<Leader>q', "<cmd>lua require('unzippants.quickfix').toggle(0)<CR>", {
 -- worktree
 map('n', '<leader>gws', ":lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", { noremap = true });
 map('n', '<leader>gwc', ":lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>", { noremap = true });
-
--- copilot
-map('i', "<C-y>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
