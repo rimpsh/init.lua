@@ -3,7 +3,6 @@ local lsp = require("lsp-zero")
 lsp.preset("recommended")
 
 lsp.ensure_installed({
-    'tsserver',
     'rust_analyzer',
     'lua_ls',
     'zls',
@@ -22,6 +21,10 @@ lsp.configure('lua_ls', {
     }
 })
 
+lsp.configure('volar', {
+    filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' }
+})
+
 lsp.configure('gopls', {
     settings = {
         gopls = {
@@ -29,6 +32,7 @@ lsp.configure('gopls', {
                 unusedparams = true,
             },
             --staticcheck = true,
+            gofumpt = true,
             buildFlags = { "-tags=linux,freebsd" },
             directoryFilters = {
                 "-**/node_modules",
@@ -67,7 +71,7 @@ lsp.format_on_save({
         ['gopls'] = { 'go' },
         ['lua_ls'] = { 'lua' },
         ['rust_analyzer'] = { 'rust' },
-        ['null-ls'] = { 'javascript', 'typescript' },
+        ['null-ls'] = { 'javascript', 'typescript', 'vue' },
     }
 })
 
