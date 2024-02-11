@@ -1,0 +1,5 @@
+require("config.settings")
+require("config.lazy")
+require("config.keymap")
+require("config.highlight")
+require("config.format")

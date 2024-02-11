@@ -1,5 +1,8 @@
 # init.lua
 
-my neovim configuration
+my current neovim configuration
 
-a lot of stuff stolen from: https://github.com/ThePrimeagen/init.lua
+mainly smashed together from:
+
+- https://github.com/dmmulroy/kickstart.nix/tree/main/config/nvim
+- https://github.com/ThePrimeagen/neovimrc

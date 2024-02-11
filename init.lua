@@ -1,1 +1,1 @@
-require("unzippants")
+require("config.init")
