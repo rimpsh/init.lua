@@ -67,7 +67,7 @@ map(
 )
 map("n", "<leader>pb", ':lua require("telescope.builtin").buffers()<CR>', { noremap = true })
 map("n", "<leader>vh", ':lua require("telescope.builtin").help_tags()<CR>', { noremap = true })
-map("n", "<leader>gc", ':lua require("unzippants.telescope").git_branches()<CR>', { noremap = true })
+map("n", "<leader>gc", ':lua require("telescope.builtin").git_branches()<CR>', { noremap = true })
 
 -- trouble
 map("n", "<leader>tt", require("trouble").toggle)
